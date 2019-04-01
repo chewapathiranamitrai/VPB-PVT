@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2019-04-01T11:19:14Z'
+  labels:
+    app: curr-convert3
+  name: curr-convert3
+  namespace: myproject
+  resourceVersion: '29809'
+  selfLink: /api/v1/namespaces/myproject/services/curr-convert3
+  uid: fb7def24-546f-11e9-83b1-02d97b035ff8
+spec:
+  clusterIP: 172.30.8.219
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    deploymentconfig: curr-convert3
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

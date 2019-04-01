@@ -1,0 +1,54 @@
+{
+   "kind": "BuildConfig",
+   "apiVersion": "v1",
+   "metadata": {
+      "name": "mlbparks",            
+      "labels": {
+         "application": "mlbparks"    
+      }
+   },
+   "spec": {
+      "source": {                     (3)
+         "type": "Git",               (4)
+         "git": {
+            "uri": "https://github.com/jorgemoralespou/openshift3mlbparks.git",  (5)
+            "ref": "master"           (6)
+         },
+         "contextDir":""              (7)
+      },
+      "strategy": {                   (8)
+         "type": "Source",            (9)
+         "sourceStrategy": {
+            "from": {                 (10)
+               "kind": "ImageStreamTag",
+               "namespace": "openshift",
+               "name": "jboss-eap6-openshift:6.4"
+            }
+         }
+      },
+      "output": {                     (11)
+         "to": {
+            "kind": "ImageStreamTag",
+            "name": "mlbparks:latest"
+         }
+      },
+      "triggers": [
+         {
+            "type": "GitHub",         (12)
+            "generic": {
+               "secret": "secret"
+            }
+         },
+         {
+            "type": "Generic",        (13)
+            "github": {
+               "secret": "secret"
+            }
+         },
+         {
+            "type": "ImageChange",    (14)
+            "imageChange": {}
+         }
+      ]
+   }
+}

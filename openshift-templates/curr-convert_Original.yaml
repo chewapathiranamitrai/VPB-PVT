@@ -1,0 +1,93 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    openshift.io/generated-by: OpenShiftWebConsole
+  creationTimestamp: '2019-04-01T05:54:06Z'
+  generation: 2
+  labels:
+    app: curr-convert1
+  name: curr-convert1
+  namespace: myproject
+  resourceVersion: '2599'
+  selfLink: >-
+    /apis/apps.openshift.io/v1/namespaces/myproject/deploymentconfigs/curr-convert1
+  uid: 8f560529-5442-11e9-83b1-02d97b035ff8
+spec:
+  replicas: 1
+  selector:
+    app: curr-convert1
+    deploymentconfig: curr-convert1
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      creationTimestamp: null
+      labels:
+        app: curr-convert1
+        deploymentconfig: curr-convert1
+    spec:
+      containers:
+        - image: >-
+            nexusvp.mitralabs.co.uk:8082/curr-convert@sha256:d790a19a96a3e7a48fbdad77b7008026ad5179f58b062f6719e02225dd1f315c
+          imagePullPolicy: Always
+          name: curr-convert1
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - curr-convert1
+        from:
+          kind: ImageStreamTag
+          name: 'curr-convert1:latest'
+          namespace: myproject
+        lastTriggeredImage: >-
+          nexusvp.mitralabs.co.uk:8082/curr-convert@sha256:d790a19a96a3e7a48fbdad77b7008026ad5179f58b062f6719e02225dd1f315c
+      type: ImageChange
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: '2019-04-01T05:54:11Z'
+      lastUpdateTime: '2019-04-01T05:54:11Z'
+      message: Deployment config has minimum availability.
+      status: 'True'
+      type: Available
+    - lastTransitionTime: '2019-04-01T05:54:08Z'
+      lastUpdateTime: '2019-04-01T05:54:12Z'
+      message: replication controller "curr-convert1-1" successfully rolled out
+      reason: NewReplicationControllerAvailable
+      status: 'True'
+      type: Progressing
+  details:
+    causes:
+      - type: ConfigChange
+    message: config change
+  latestVersion: 1
+  observedGeneration: 2
+  readyReplicas: 1
+  replicas: 1
+  unavailableReplicas: 0
+  updatedReplicas: 1
